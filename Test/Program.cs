@@ -1,17 +1,16 @@
-﻿namespace Projekt
+﻿namespace Test
 {
     class Zadanie
     {
 
-        static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("------Bank------");
             Console.WriteLine("Wprowadź kwotę pożyczki");
-            string kwota = Console.ReadLine();
-            float spr1 = 0;
-            bool cyferka1 = float.TryParse(kwota, out spr1);   
+            var Podanakwota = Console.ReadLine();
+            var kwota = float.TryParse(Podanakwota, out var kwotaResult);
 
-            if (cyferka1 != true)
+            if (kwota != true)
             {
                 Console.WriteLine("Podano niepoprawne dane");
                 Console.WriteLine("Spróbuj ponownie");
@@ -19,63 +18,49 @@
             }         
 
             Console.WriteLine("Wypisz na jak długo miesięcy chcesz pozyczyć");
-      
-            string czas = Console.ReadLine();
-            int spr2 = 0;
-            bool cyferka2 = int.TryParse(czas, out spr2);
 
-            if (cyferka2 != true)
+            var Podanyczas = Console.ReadLine();
+            var czas = int.TryParse(Podanyczas, out var czasResult);
+
+            if (czas != true)
             {
                 Console.WriteLine("Podano niepoprawne dane");
                 Console.WriteLine("Spróbuj ponownie");
                 Environment.Exit(0);
             }
-          
 
-            short iloscMiesiecy;
-            float oprocentowanie_miesieczne;
+            float oprocentowanieMIesieczne;
 
-            float splata = 0f;
-            float miesiac = 0f;
+            var splata = 0f;
             short i = 0;
             Console.WriteLine("Wprowadz oprocentowanie twojego kredytu w %");
-            string oprocentowanie = Console.ReadLine();
-            float spr3 = 0;
-            bool cyferka3 = float.TryParse(oprocentowanie, out spr3);
+            var Podaneoprocentowanie = Console.ReadLine();
+            var oprocentowanie = float.TryParse(Podaneoprocentowanie, out var oprocentowanieResult);
 
-            if (cyferka3 != true)
+            if (oprocentowanie != true)
             {
                 Console.WriteLine("Podano niepoprawne dane");
                 Console.WriteLine("Spróbuj ponownie");
                 Environment.Exit(0);
             }
            
-
             Console.Clear();
             Console.WriteLine("------Bank------");
-            Console.WriteLine("Kwota pozyczki wynosi: " + spr1);
-            Console.WriteLine("Wybrałeś pożyczkę na " + spr2 + " miesięcy");
-            Console.WriteLine("Twoje oprocentowanie wynosi " + spr3 + " %");
+            Console.WriteLine("Kwota pozyczki wynosi: " + kwotaResult);
+            Console.WriteLine("Wybrałeś pożyczkę na " + czasResult + " miesięcy");
+            Console.WriteLine("Twoje oprocentowanie wynosi " + oprocentowanieResult + " %");
 
-            oprocentowanie_miesieczne = (float)(spr3 / 100.0);
-            iloscMiesiecy = 1;
+            oprocentowanieMIesieczne = (float)(oprocentowanieResult / 100.0);
 
-  
-          
-                splata += spr1 + (oprocentowanie_miesieczne * spr1);
-
-
-
-                     
+                splata += kwotaResult + (oprocentowanieMIesieczne * kwotaResult);
+                  
                      Console.WriteLine("Kwota do spłacenia wynosi : {0}", splata);
                      do
                      {
-                         miesiac = splata / spr2;
-                         Console.WriteLine("Miesiąc  {0} Spłata  {1}", ++i, miesiac);
-                         spr2--;
-                     } while (spr2 > 0);
-
-             
+                var miesiac = splata / czasResult;
+                Console.WriteLine("Miesiąc  {0} Spłata  {1}", ++i, miesiac);
+                         czasResult--;
+                     } while (czasResult> 0);
 
             Console.ReadKey();
         }
