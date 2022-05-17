@@ -6,17 +6,22 @@ internal class Zadanie
         Console.Clear();
         Console.WriteLine("------Bank------");
     }
+
+    private static void Write()
+    {
+        Console.WriteLine("Podano niepoprawne dane");
+        Console.WriteLine("Spróbuj ponownie");
+        Console.WriteLine("-----------------------------------");
+    }
     private static float Menu()
     {
         Console.WriteLine("Wprowadź kwotę pożyczki");
         var podanakwota = Console.ReadLine();
         var kwota = float.TryParse(podanakwota, out var kwotaResult);
 
-        if (!kwota)
+        if (!kwota || kwotaResult < 1)
         {
-            Console.WriteLine("Podano niepoprawne dane");
-            Console.WriteLine("Spróbuj ponownie");
-            Console.WriteLine("-----------------------------------");
+            Write();
             kwotaResult = Menu();
         }
         return kwotaResult;
@@ -29,11 +34,9 @@ internal class Zadanie
         var Podanyczas = Console.ReadLine();
         var czas = float.TryParse(Podanyczas, out var czasResult);
 
-        if (czas != true)
+        if (czas != true || czasResult < 1)
         {
-            Console.WriteLine("Podano niepoprawną kwotę");
-            Console.WriteLine("Spróbuj ponownie");
-            Console.WriteLine("-----------------------------------");
+            Write();
             czasResult = Menu2();
         }
         return czasResult;
@@ -46,11 +49,9 @@ internal class Zadanie
 
         var oprocentowanie = float.TryParse(Podaneoprocentowanie, out var oprocentowanieResult);
 
-        if (oprocentowanie != true)
+        if (oprocentowanie != true || oprocentowanieResult < 1)
         {
-            Console.WriteLine("Podano niepoprawne oprocentowanie");
-            Console.WriteLine("Spróbuj ponownie");
-            Console.WriteLine("-----------------------------------");
+            Write();
             oprocentowanieResult = MenuOprocentowania();
         }
         return oprocentowanieResult;
