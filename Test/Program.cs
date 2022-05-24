@@ -1,91 +1,69 @@
 ﻿namespace Test;
 internal class Zadanie
 {
-    private static void Hello()
+    public static bool Wprowadzenie;
+    public static float Konwertuj;
+
+    private static void Witaj()
     {
         Console.Clear();
         Console.WriteLine("------Bank------");
     }
 
-    private static void Write()
+    private static void ZlaWartosc()
     {
         Console.WriteLine("Podano niepoprawne dane");
         Console.WriteLine("Spróbuj ponownie");
         Console.WriteLine("-----------------------------------");
     }
-    private static float Menu()
+
+    
+    public static float MenuObliczenia(string Komunikat)
     {
-        Console.WriteLine("Wprowadź kwotę pożyczki");
+       Console.WriteLine(Komunikat);
         var podanakwota = Console.ReadLine();
         var kwota = float.TryParse(podanakwota, out var kwotaResult);
-
-        if (!kwota || kwotaResult < 1)
+        Wprowadzenie = kwota;
+        Konwertuj = kwotaResult;
+        if (!Wprowadzenie || Konwertuj < 1)
         {
-            Write();
-            kwotaResult = Menu();
+            ZlaWartosc();
+            Konwertuj = MenuObliczenia(Komunikat);
         }
-        return kwotaResult;
+        return Konwertuj;
     }
-
-    private static float Menu2()
-    {
-        Console.WriteLine("Wypisz na ile miesięcy chcesz pozyczyć");
-
-        var Podanyczas = Console.ReadLine();
-        var czas = float.TryParse(Podanyczas, out var czasResult);
-
-        if (czas != true || czasResult < 1)
-        {
-            Write();
-            czasResult = Menu2();
-        }
-        return czasResult;
-    }
-
-    private static float MenuOprocentowania()
-    {
-        Console.WriteLine("Wprowadz oprocentowanie twojego kredytu w %");
-        var Podaneoprocentowanie = Console.ReadLine();
-
-        var oprocentowanie = float.TryParse(Podaneoprocentowanie, out var oprocentowanieResult);
-
-        if (oprocentowanie != true || oprocentowanieResult < 1)
-        {
-            Write();
-            oprocentowanieResult = MenuOprocentowania();
-        }
-        return oprocentowanieResult;
-    }
-
-    private static void wypisz(float kwotaResult, float czasResult, float oprocentowanieResult, float splata)
-    {
-        Console.Clear();
-        Console.WriteLine("------Bank------");
-        Console.WriteLine("Kwota pozyczki wynosi: " + kwotaResult);
-        Console.WriteLine("Wybrałeś pożyczkę na " + czasResult + " miesięcy");
-        Console.WriteLine("Twoje oprocentowanie wynosi " + oprocentowanieResult + " %");
-
-        Console.WriteLine("Kwota do spłacenia wynosi : {0}", splata);
-        var i = 0;
-        do
-        {
-            var miesiac = new Rata().Miesiac(splata, czasResult, i + 1);
-            Console.WriteLine("Miesiąc {0} Spłata  {1}", ++i, miesiac);
-        } while (i < czasResult);
-
-    }
+    
 
 
+      private static void wypisz(float kwotaResult, float czasResult, float oprocentowanieResult, float splata)
+      {
+          Console.Clear();
+          Console.WriteLine("------Bank------");
+          Console.WriteLine("Kwota pozyczki wynosi: " + kwotaResult);
+          Console.WriteLine("Wybrałeś pożyczkę na " + czasResult + " miesięcy");
+          Console.WriteLine("Twoje oprocentowanie wynosi " + oprocentowanieResult + " %");
 
-    private static void Main()
+          Console.WriteLine("Kwota do spłacenia wynosi : {0}", splata);
+          var i = 0;
+          do
+          {
+              var miesiac = new Rata().Miesiac(splata, czasResult, i + 1);
+              Console.WriteLine("Miesiąc {0} Spłata  {1}", ++i, miesiac);
+          } while (i < czasResult);
+
+      }
+    
+
+     static void Main(string[]args)
     {
         var repeat = false;
         do
         {
-            Hello();
-            var kwotaResult = Menu();
-            var czasResult = Menu2();
-            var oprocentowanieResult = MenuOprocentowania();
+            Witaj();
+
+            var kwotaResult = MenuObliczenia("Wprowadź kwotę pożyczki");
+            var czasResult = MenuObliczenia("Podaj na jak długo miesiecy");
+            var oprocentowanieResult = MenuObliczenia("Podaj oprocentowanie w %");
 
             var splata = new Rata().Splata(kwotaResult, oprocentowanieResult);
 
